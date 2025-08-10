@@ -1,6 +1,6 @@
-**# BookVerse - Book Catalog & Review Platform (Cloud-Infrastructure Only)**
+# 📚 BookVerse - Book Catalog & Review Platform (Cloud-Infrastructure Only) 🛠️☁️
 
-# **Background**
+# **Background** 
 
 BookVerse is a fictious cloud-deployed application designed to showcase build, deploy and manage modern book catalog and review system using AWS infrastructure with KodeKloud's Playground (i.e a temporary 3 hour AWS environment with limited features available for hands-on learning)
 
