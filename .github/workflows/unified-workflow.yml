@@ -1,0 +1,40 @@
+name: Deploy BookVerse Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform/**/*.tf'       # Updated path to terraform folder
+      - 'terraform/modules/**'    # Updated path to modules
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'terraform/**/*.tf'       # Updated path to terraform folder
+      - 'terraform/modules/**'    # Updated path to modules
+  workflow_dispatch:
+    inputs:
+      terraform-action:
+        description: 'Terraform action to perform'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+jobs:
+  deploy:
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' }}
+    uses: cert-study-dev/unified-reusable-workflow/.github/workflows/unified-reusable-workflow.yml@main
+    with:
+      run-terraform: true
+      run-python: false
+      run-shell: false
+      terraform-dir: './terraform'
+      terraform-action: ${{ github.event_name == 'push' && 'apply' || github.event.inputs.terraform-action || 'plan' }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
