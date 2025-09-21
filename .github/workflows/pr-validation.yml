@@ -1,0 +1,15 @@
+name: PR Validation
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+jobs:
+  validate-pr:
+    uses: cert-study-dev/unified-reusable-workflow/.github/workflows/conventional-commit.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
